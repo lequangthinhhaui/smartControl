@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html>
+
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/paho-mqtt/1.0.1/mqttws31.js" type="text/javascript"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+<title>
+Điều Khiển Thiết Bị Qua Wifi
+</title>
+<style>
+.button {
+  border: none;
+  color: white;
+  padding: 20px 100px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+}
+
+.button1 {background-color: #008CBA;} 
+.button2 {background-color: #008CBA;} /* Blue */
+.button3 {background-color: #008CBA;} 
+.button4 {background-color: #008CBA;} /* Blue */
+
+</style>
+
+
+<script type="text/javascript">
+
+	var client = new Paho.MQTT.Client("3.16.136.210", 7979,"web_" + parseInt(Math.random() * 100, 10));  
+	client.onConnectionLost = onConnectionLost;  
+    client.onMessageArrived = onMessageArrived;
+
+	
+	var options = { useSSL: false,userName: "hungthinhhaui",password: "CNxCDXpJ",onSuccess: onConnect , onFailure: doFail } 
+	
+    client.connect(options);  
+	  
+    function onConnect()
+	{
+        console.log("Connect Server mqtt.ngoinhaiot.com");
+        client.subscribe("hungthinhhaui/maylanh");	 // nhận dữ liệu		
+    }  
+	
+	function doFail(e) {
+		console.log("Không kết nối Server mqtt.ngoinhaiot.com");
+        console.log(e);
+    }
+ 
+    function onConnectionLost(responseObject) 
+	{
+        if (responseObject.errorCode !== 0) 
+		{
+		console.log("error");
+        console.log("onConnectionLost:" + responseObject.errorMessage);
+        }
+    } 
+	
+    function onMessageArrived(message) 
+	{
+        console.log("Data ESP:" + message.payloadString);
+		var DataServer = message.payloadString;
+		document.getElementById("datavdk").innerHTML = DataServer;
+		var DataJson = JSON.parse(DataServer);
+    
+    // hiển thị trạng thái relay 1
+    
+    if(DataJson.relay1 == 0)
+    {
+      // hiển thị OFF relay
+      document.getElementById("trangthairelay1").innerHTML = "OFF";
+    }
+    else if(DataJson.relay1 == 1)
+    {
+      // hiển thị On relay
+      document.getElementById("trangthairelay1").innerHTML = "ON";
+    }
+	
+	// hiển thị trạng thái relay 2
+    if(DataJson.relay2 == 0)
+    {
+      // hiển thị OFF relay
+      document.getElementById("trangthairelay2").innerHTML = "OFF";
+      
+    }
+    else if(DataJson.relay2 == 1)
+    {
+      // hiển thị On relay
+      document.getElementById("trangthairelay2").innerHTML = "ON";
+    }
+	// hiển thị trạng thái relay 3
+    if(DataJson.relay3 == 0)
+    {
+      // hiển thị OFF relay
+      document.getElementById("trangthairelay3").innerHTML = "OFF";
+      
+    }
+    else if(DataJson.relay3 == 1)
+    {
+      // hiển thị On relay
+      document.getElementById("trangthairelay3").innerHTML = "ON";
+    }
+	// hiển thị trạng thái relay 4
+    if(DataJson.relay4 == 0)
+    {
+      // hiển thị OFF relay
+      document.getElementById("trangthairelay4").innerHTML = "OFF";
+      
+    }
+    else if(DataJson.relay4 == 1)
+    {
+      // hiển thị On relay
+      document.getElementById("trangthairelay4").innerHTML = "ON";
+    }
+  
+	}
+	
+</script>
+
+<script>
+function onclick1()
+{
+	// điều khiển thiết bị 1 A0B , A1B
+	 var thietbi1 = document.getElementById("trangthairelay1").innerHTML;
+	 console.log(thietbi1);
+	 
+	 if(thietbi1 == "OFF")
+	 {
+		// ON tb 1
+		var DataSend = "A1B";
+		client.send("hungthinhhaui/quat", DataSend, 2, false);
+		console.log("hungthinhhaui/quat:" + DataSend);
+	 }
+	 else if(thietbi1 == "ON")
+	 {
+		// OFF
+		var DataSend = "A0B";
+		client.send("hungthinhhaui/quat", DataSend, 2, false);
+		console.log("hungthinhhaui/quat" + DataSend);
+	 }
+	 
+}
+
+
+function onclick2()
+{
+	var thietbi2 = document.getElementById("trangthairelay2").innerHTML;
+	 console.log(thietbi2);
+	 if(thietbi2 == "OFF")
+	 {
+		// ON tb 1
+		var DataSend = "C1D";
+		client.send("hungthinhhaui/quat", DataSend, 2, false);
+		console.log("hungthinhhaui/quat:" + DataSend);
+	 }
+	 else if(thietbi2 == "ON")
+	 {
+		// OFF
+		var DataSend = "C0D";
+		client.send("hungthinhhaui/quat", DataSend, 2, false);
+		console.log("hungthinhhaui/quat:" + DataSend);
+	 }
+ 
+}
+
+function onclick3()
+{
+	var thietbi3 = document.getElementById("trangthairelay3").innerHTML;
+	 console.log(thietbi3);
+	 if(thietbi3 == "OFF")
+	 {
+		// ON tb 1
+		var DataSend = "E1F";
+		client.send("hungthinhhaui/quat", DataSend, 2, false);
+		console.log("hungthinhhaui/quat:" + DataSend);
+	 }
+	 else if(thietbi3 == "ON")
+	 {
+		// OFF
+		var DataSend = "E0F";
+		client.send("hungthinhhaui/quat", DataSend, 2, false);
+		console.log("hungthinhhaui/quat:" + DataSend);
+	 }
+ 
+}
+function onclick4()
+{
+	var thietbi4 = document.getElementById("trangthairelay4").innerHTML;
+	 console.log(thietbi4);
+	 if(thietbi4 == "OFF")
+	 {
+		// ON tb 1
+		var DataSend = "G1H";
+		client.send("hungthinhhaui/quat", DataSend, 2, false);
+		console.log("hungthinhhaui/quat:" + DataSend);
+	 }
+	 else if(thietbi4 == "ON")
+	 {
+		// OFF
+		var DataSend = "G0H";
+		client.send("hungthinhhaui/quat", DataSend, 2, false);
+		console.log("hungthinhhaui/quat:" + DataSend);
+	 }
+ 
+}
+
+</script>
+
+
+<body>
+<center>
+<h1>ĐIỀU KHIỂN THIẾT BỊ QUA WIFI</h1>
+<h2>Data nhận:
+  <label id= 'datavdk'>0</label> 
+</h2>
+<button class="button button1" type="button" onclick = "onclick1()">Thiết bị 1</button>
+<h3>Trạng Thái Relay 1:
+  <label id= 'trangthairelay1'>OFF</label> 
+</h3>
+<button class="button button2" type="button" onclick = "onclick2()">Thiết bị 2</button>
+<h3>Trạng Thái Relay 2:
+  <label id= 'trangthairelay2'>OFF</label> 
+</h3>
+<button class="button button3" type="button" onclick = "onclick3()">Thiết bị 3</button>
+<h3>Trạng Thái Relay 3:
+  <label id= 'trangthairelay3'>OFF</label> 
+</h3>
+<button class="button button4" type="button" onclick = "onclick4()">Thiết bị 4</button>
+<h3>Trạng Thái Relay 4:
+  <label id= 'trangthairelay4'>OFF</label> 
+</h3>
+
+</center>
+</body>
+</html>
