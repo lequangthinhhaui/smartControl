@@ -56,7 +56,7 @@ function onMessageArrived(message)
     if(DataJson.relay2 == 0)
     {
     // hiển thị OFF relay
-    document.getElementById("status-relay-2").innerHTML = "Đang tắt";
+    document.getElementById("status-relay-2").innerHTML = "Đang Tắt";
     document.getElementById("light-bulb2").classList.add("light-bulb");
     document.getElementById("light-bulb2").classList.remove("light-bulb2");
     }
