@@ -1,0 +1,87 @@
+
+*{
+    margin: 0px;
+    padding: 0px;
+    box-sizing: border-box;
+}
+h1{
+    text-align: center;
+    width: 70%;
+    margin: 50px auto;
+}
+body{
+    margin-top: 30px;
+    background-color: rgb(141, 146, 131);
+}
+span{
+    display: block;
+    text-align: center;
+    font-size: 40px;
+}
+.wrapper{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    width: 60%;
+    flex-grow: 50%;
+    margin: auto;
+}
+.wrapper>.den{
+    width: 400px;
+    border: 5px solid black;
+    margin: 10px;
+    background-color: rgb(221, 216, 216);
+}
+.light-image{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+.button-wrap{
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row;
+}
+/* nut nhan on off */
+.button{
+    width: 100px;
+    height: 50px;
+    border: 1px solid black;
+    border-radius: 10px;
+    font-size: 30px;
+    cursor: pointer;
+    margin: 0px 5px 10px 5px;
+}
+.button>span{
+    display: block;
+    text-align: center;
+    margin: 10px auto;
+}
+.on-button{
+    background: green;
+}
+.off-button{
+    background: red;
+}
+
+.hinh-anh{
+    width: 150px;
+    height: 150px;
+}
+/* light bulb */
+.light-bulb2{
+    width: 150px;
+    height: 150px;
+    background: url(lightbulb.png) no-repeat 0 0;
+    opacity: 1;
+    }
+    
+.light-bulb{
+    position: absolute;
+    width: 150px;
+    height: 150px;
+    background: url(lightbulb.png) no-repeat -150px 0;
+    cursor: move;
+    z-index: 800;
+    }
