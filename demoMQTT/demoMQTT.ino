@@ -5,10 +5,10 @@
 #define ssid "WIFi bỊ nhiễm virut"//"WIFi bỊ nhiễm virut"
 #define password "minhdien04"//"minhdien04"
 // Thông tin về MQTT Broker
-#define mqtt_server "3.134.94.237" 
+#define mqtt_server "18.213.193.98" 
 #define mqtt_user ""    
 #define mqtt_pwd ""
-const uint16_t mqtt_port = 1111; 
+const uint16_t mqtt_port = 1883; 
 
 String mqtt_topic_pub = "hungthinhhaui/maylanh";   
 String mqtt_topic_sub = "hungthinhhaui/quat";
@@ -34,7 +34,7 @@ int trangthairelay4 = 0;
 
 void setup() {
   Serial.begin(9600);
-  pinMode(D0, OUTPUT);
+  pinMode(D4, OUTPUT);
   pinMode(D5, OUTPUT);
   pinMode(D6, OUTPUT);
   pinMode(D7, OUTPUT);
@@ -73,13 +73,13 @@ void callback(char* topic, byte* payload, unsigned int length)
   if (Data.indexOf("A0B") >= 0)
   {
     Serial.println("OFF thiết bị 1");
-    digitalWrite(D0,HIGH);
+    digitalWrite(D4,LOW);
     trangthairelay1 = 0;
   }
   else if (Data.indexOf("A1B") >= 0)
   {
     Serial.println("ON thiết bị 1");
-    digitalWrite(D0,LOW);
+    digitalWrite(D4,HIGH);
     trangthairelay1 = 1;
   }
 
@@ -87,37 +87,37 @@ void callback(char* topic, byte* payload, unsigned int length)
   {
     Serial.println("OFF thiết bị 2");
     trangthairelay2 = 0;
-    digitalWrite(D5,HIGH);
+    digitalWrite(D5,LOW);
   }
   else if (Data.indexOf("C1D") >= 0)
   {
     Serial.println("ON thiết bị 2");
     trangthairelay2 = 1;
-    digitalWrite(D5,LOW);
+    digitalWrite(D5,HIGH);
   }
   else if (Data.indexOf("E0F") >= 0)
   {
     Serial.println("OFF thiết bị 3");
     trangthairelay3 = 0;
-    digitalWrite(D6,HIGH);
+    digitalWrite(D6,LOW);
   }
   else if (Data.indexOf("E1F") >= 0)
   {
     Serial.println("ON thiết bị 3");
     trangthairelay3 = 1;
-    digitalWrite(D6,LOW);
+    digitalWrite(D6,HIGH);
   }
   else if (Data.indexOf("G0H") >= 0)
   {
     Serial.println("OFF thiết bị 4");
     trangthairelay4 = 0;
-    digitalWrite(D7,HIGH);
+    digitalWrite(D7,LOW);
   }
   else if (Data.indexOf("G1H") >= 0)
   {
     Serial.println("ON thiết bị 4");
     trangthairelay4 = 1;
-    digitalWrite(D7,LOW);
+    digitalWrite(D7,HIGH);
   }
   Data = "";
   
