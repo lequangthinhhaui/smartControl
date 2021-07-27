@@ -26,11 +26,12 @@ span{
     flex-wrap: wrap;
     justify-content: space-around;
     width: 80%;
-    flex-grow: 50%;
     margin: auto;
+    margin-top: 3%;
 }
 .wrapper>.den{
-    width: 350px;
+    flex-grow: 50%;
+    flex-basis: 40%;
     border: 5px solid black;
     margin: 10px;
     background-color: rgb(182, 176, 176);
